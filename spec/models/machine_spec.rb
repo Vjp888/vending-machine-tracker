@@ -8,4 +8,16 @@ RSpec.describe Machine, type: :model do
     it {should have_many(:snacks).through(:machine_snacks)}
   end
 
+  describe 'instance methods' do
+
+    it '.average_snack_price' do
+      owner = Owner.create(name: "Sam's Snacks")
+      dons  = owner.machines.create(location: "Don's Mixed Drinks")
+      snack = dons.snacks.create(name: "food", price: 10.00)
+      snack = dons.snacks.create(name: "food", price: 5.00)
+
+      expect(dons.average_snack_price).to eq(7.50)
+    end
+  end
+
 end
